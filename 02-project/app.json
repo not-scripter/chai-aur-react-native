@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "01-project",
-    "slug": "01-project",
+    "name": "02-project",
+    "slug": "02-project",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "automatic",
+    "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

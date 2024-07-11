@@ -1,13 +1,6 @@
 {
-  "name": "01-project",
+  "name": "02-project",
   "version": "1.0.0",
-  "author": "notscripter",
-  "keywords": [],
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/not-scripter/expo-template-blank/issues"
-  },
-  "homepage": "https://github.com/not-scripter/expo-template-blank",
   "main": "expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
@@ -16,7 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "expo": "~51.0.18",
+    "expo": "~51.0.19",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
     "react-native": "0.74.3"
