@@ -23,24 +23,19 @@ const passwordSchema = yup.object().shape({
 export default function App() {
   const [password, setpassword] = useState("");
   const [isPasswordGenerated, setisPasswordGenerated] = useState(false);
-  const [lowercase, setlowercase] = useState(false);
   const [uppercase, setuppercase] = useState(false);
   const [numbers, setnumbers] = useState(false);
   const [symbols, setsymbols] = useState(false);
 
   const generatePasswordString = (passwordLength: number) => {
-    let charList = "";
+    let charList = "abcdefghijklmnopqrstuvwxyz";
 
     const upperCaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const lowerCaseChars = "abcdefghijklmnopqrstuvwxyz";
     const digitChars = "0123456789";
     const specialChars = "!@#$%^&*()_+";
 
     if (uppercase) {
       charList += upperCaseChars;
-    }
-    if (lowercase) {
-      charList += lowerCaseChars;
     }
     if (numbers) {
       charList += digitChars;
@@ -68,15 +63,16 @@ export default function App() {
     setpassword("");
     setisPasswordGenerated(false);
     setuppercase(false);
-    setlowercase(false);
     setnumbers(false);
     setsymbols(false);
   };
 
   return (
-    <ScrollView keyboardShouldPersistTaps>
-      <View>
-        <Text>Password Generator</Text>
+    <ScrollView className="bg-gray-900 p-4" keyboardShouldPersistTaps>
+      <View className="flex-1 items-center">
+        <Text className="text-white text-3xl font-bold mt-8 mb-4">
+          Password Generator
+        </Text>
         <Formik
           initialValues={{ passwordLength: "" }}
           validationSchema={passwordSchema}
@@ -95,11 +91,15 @@ export default function App() {
             /* and other goodies */
           }) => (
             <>
-              <View>
+              <View className="flex-row justify-center items-center gap-2">
                 <View>
-                  <Text>Password Length</Text>
+                  <Text className="text-white/80 text-xl font-bold">
+                    Password Length
+                  </Text>
                   {touched.passwordLength && errors.passwordLength && (
-                    <Text>{errors.passwordLength}</Text>
+                    <Text className="text-red-400">
+                      {errors.passwordLength}
+                    </Text>
                   )}
                 </View>
                 <TextInput
@@ -107,47 +107,52 @@ export default function App() {
                   onChangeText={handleChange("passwordLength")}
                   placeholder="E.g. 8"
                   keyboardType="numeric"
-                />
-              </View>
-              <View>
-                <Text>Include Lowercase</Text>
-                <BouncyCheckbox
-                  isChecked={lowercase}
-                  onPress={() => setlowercase(!lowercase)}
-                  fillColor="#0ff"
-                />
-              </View>
-              <View>
-                <Text>Include Uppercase</Text>
-                <BouncyCheckbox
-                  isChecked={uppercase}
-                  onPress={() => setuppercase(!uppercase)}
-                  fillColor="#0ff"
-                />
-              </View>
-              <View>
-                <Text>Include Numbers</Text>
-                <BouncyCheckbox
-                  isChecked={numbers}
-                  onPress={() => setnumbers(!numbers)}
-                  fillColor="#0ff"
-                />
-              </View>
-              <View>
-                <Text>Include Symbols</Text>
-                <BouncyCheckbox
-                  isChecked={symbols}
-                  onPress={() => setsymbols(!symbols)}
-                  fillColor="#0ff"
+                  className="text-white border border-white px-4 py-1 rounded-md"
                 />
               </View>
 
-              <View>
+              <View className="m-4 flex-1 gap-2">
+                <View className="flex-row justify-between gap-4">
+                  <Text className="text-white/80 text-xl font-bold">
+                    Include Uppercase
+                  </Text>
+                  <BouncyCheckbox
+                    isChecked={uppercase}
+                    onPress={() => setuppercase(!uppercase)}
+                    fillColor="#0ff"
+                  />
+                </View>
+                <View className="flex-row justify-between gap-4">
+                  <Text className="text-white/80 text-xl font-bold">
+                    Include Numbers
+                  </Text>
+                  <BouncyCheckbox
+                    isChecked={numbers}
+                    onPress={() => setnumbers(!numbers)}
+                    fillColor="#0ff"
+                  />
+                </View>
+                <View className="flex-row justify-between gap-4">
+                  <Text className="text-white/80 text-xl font-bold">
+                    Include Symbols
+                  </Text>
+                  <BouncyCheckbox
+                    isChecked={symbols}
+                    onPress={() => setsymbols(!symbols)}
+                    fillColor="#0ff"
+                  />
+                </View>
+              </View>
+
+              <View className="flex-row justify-between gap-4">
                 <TouchableOpacity
                   disabled={!isValid}
                   onPress={() => handleSubmit()}
+                  className=""
                 >
-                  <Text>Generate Password</Text>
+                  <Text className="text-white/80 font-bold text-xl border border-green-300 px-2 py-1 rounded-md">
+                    Generate Password
+                  </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
@@ -155,19 +160,28 @@ export default function App() {
                     resetPassword();
                   }}
                 >
-                  <Text>Reset</Text>
+                  <Text className="text-white/80 font-bold text-xl border border-red-300 px-2 py-1 rounded-md">
+                    Reset
+                  </Text>
                 </TouchableOpacity>
               </View>
             </>
           )}
         </Formik>
         {isPasswordGenerated ? (
-          <View>
-            <Text selectable>{password}</Text>
+          <View className="bg-gray-600 w-full p-4 flex-1 items-center rounded-md mt-4">
+            <Text
+              selectable
+              className="text-green-100 font-bold tracking-wide text-xl"
+            >
+              {password}
+            </Text>
             <TouchableOpacity
               onPress={() => Clipboard.setStringAsync(password)}
             >
-              <Text>Copy</Text>
+              <Text className="text-green-300 mt-4 font-bold text-xl">
+                Copy
+              </Text>
             </TouchableOpacity>
           </View>
         ) : null}
