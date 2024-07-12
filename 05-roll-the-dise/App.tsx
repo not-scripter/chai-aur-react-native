@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import {
+  Button,
   Image,
   ImageSourcePropType,
   ScrollView,
@@ -7,6 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import * as Haptics from "expo-haptics";
 
 import DiseOne from "@/assets/One.png";
 import DiseTwo from "@/assets/Two.png";
@@ -58,6 +60,7 @@ export default function App() {
         setdiseImage(DiseOne);
         break;
     }
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success); //NOTE: pending testing
   };
 
   return (
@@ -71,6 +74,7 @@ export default function App() {
           <Text className="text-white/80 text-2xl font-bold">Roll</Text>
         </TouchableOpacity>
       </View>
+
       <StatusBar style="auto" />
     </>
   );
