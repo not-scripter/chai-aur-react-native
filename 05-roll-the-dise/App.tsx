@@ -32,19 +32,7 @@ export default function App() {
   const [diseImage, setdiseImage] = useState<ImageSourcePropType>(DiseOne);
 
   const rollDise = () => {
-    let randomNumber: number = 1;
-    let generatedNumber: number = 1;
-    const generateNumber = () => {
-      generatedNumber = Math.floor(Math.random() * 6 + 1);
-    };
-    generateNumber();
-    if (randomNumber !== generatedNumber) {
-      randomNumber = generatedNumber;
-    } else {
-      generateNumber();
-    }
-    // const tempNum = genNum();
-    // tempNum !== randomNumber ? (randomNumber = tempNum) : genNum();
+    let randomNumber = Math.floor(Math.random() * 6 + 1);
 
     switch (randomNumber) {
       case 1:
