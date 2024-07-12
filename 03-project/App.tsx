@@ -9,6 +9,8 @@ import {
   View,
 } from "react-native";
 import * as yup from "yup";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
+import * as Clipboard from "expo-clipboard";
 
 const passwordSchema = yup.object().shape({
   passwordLength: yup
@@ -95,21 +97,80 @@ export default function App() {
             <>
               <View>
                 <View>
-                  <TextInput />
+                  <Text>Password Length</Text>
+                  {touched.passwordLength && errors.passwordLength && (
+                    <Text>{errors.passwordLength}</Text>
+                  )}
                 </View>
+                <TextInput
+                  value={values.passwordLength}
+                  onChangeText={handleChange("passwordLength")}
+                  placeholder="E.g. 8"
+                  keyboardType="numeric"
+                />
               </View>
-              <View></View>
-              <View></View>
-              <View></View>
-              <View></View>
+              <View>
+                <Text>Include Lowercase</Text>
+                <BouncyCheckbox
+                  isChecked={lowercase}
+                  onPress={() => setlowercase(!lowercase)}
+                  fillColor="#0ff"
+                />
+              </View>
+              <View>
+                <Text>Include Uppercase</Text>
+                <BouncyCheckbox
+                  isChecked={uppercase}
+                  onPress={() => setuppercase(!uppercase)}
+                  fillColor="#0ff"
+                />
+              </View>
+              <View>
+                <Text>Include Numbers</Text>
+                <BouncyCheckbox
+                  isChecked={numbers}
+                  onPress={() => setnumbers(!numbers)}
+                  fillColor="#0ff"
+                />
+              </View>
+              <View>
+                <Text>Include Symbols</Text>
+                <BouncyCheckbox
+                  isChecked={symbols}
+                  onPress={() => setsymbols(!symbols)}
+                  fillColor="#0ff"
+                />
+              </View>
 
               <View>
-                <TouchableOpacity>Generate Password</TouchableOpacity>
-                <TouchableOpacity>Reset</TouchableOpacity>
+                <TouchableOpacity
+                  disabled={!isValid}
+                  onPress={() => handleSubmit()}
+                >
+                  <Text>Generate Password</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    handleReset();
+                    resetPassword();
+                  }}
+                >
+                  <Text>Reset</Text>
+                </TouchableOpacity>
               </View>
             </>
           )}
         </Formik>
+        {isPasswordGenerated ? (
+          <View>
+            <Text selectable>{password}</Text>
+            <TouchableOpacity
+              onPress={() => Clipboard.setStringAsync(password)}
+            >
+              <Text>Copy</Text>
+            </TouchableOpacity>
+          </View>
+        ) : null}
       </View>
       <StatusBar style="auto" />
     </ScrollView>
