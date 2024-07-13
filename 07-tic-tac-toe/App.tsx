@@ -27,49 +27,65 @@ export default function App() {
       gameState[0] === gameState[2] &&
       gameState[0] !== "empty"
     ) {
-      setwinner(`${gameState[0]} won the game! 🥳`);
+      setwinner(
+        `${gameState[0] === "cross" ? "Opponent" : "You"} won the game! 🥳`,
+      );
     } else if (
       gameState[3] !== "empty" &&
       gameState[3] === gameState[4] &&
       gameState[4] === gameState[5]
     ) {
-      setwinner(`${gameState[3]} won the game! 🥳`);
+      setwinner(
+        `${gameState[3] === "cross" ? "Opponent" : "You"} won the game! 🥳`,
+      );
     } else if (
       gameState[6] !== "empty" &&
       gameState[6] === gameState[7] &&
       gameState[7] === gameState[8]
     ) {
-      setwinner(`${gameState[6]} won the game! 🥳`);
+      setwinner(
+        `${gameState[6] === "cross" ? "Opponent" : "You"} won the game! 🥳`,
+      );
     } else if (
       gameState[0] !== "empty" &&
       gameState[0] === gameState[3] &&
       gameState[3] === gameState[6]
     ) {
-      setwinner(`${gameState[0]} won the game! 🥳`);
+      setwinner(
+        `${gameState[0] === "cross" ? "Opponent" : "You"} won the game! 🥳`,
+      );
     } else if (
       gameState[1] !== "empty" &&
       gameState[1] === gameState[4] &&
       gameState[4] === gameState[7]
     ) {
-      setwinner(`${gameState[1]} won the game! 🥳`);
+      setwinner(
+        `${gameState[1] === "cross" ? "Opponent" : "You"} won the game! 🥳`,
+      );
     } else if (
       gameState[2] !== "empty" &&
       gameState[2] === gameState[5] &&
       gameState[5] === gameState[8]
     ) {
-      setwinner(`${gameState[2]} won the game! 🥳`);
+      setwinner(
+        `${gameState[2] === "cross" ? "Opponent" : "You"} won the game! 🥳`,
+      );
     } else if (
       gameState[0] !== "empty" &&
       gameState[0] === gameState[4] &&
       gameState[4] === gameState[8]
     ) {
-      setwinner(`${gameState[0]} won the game! 🥳`);
+      setwinner(
+        `${gameState[0] === "cross" ? "Opponent" : "You"} won the game! 🥳`,
+      );
     } else if (
       gameState[2] !== "empty" &&
       gameState[2] === gameState[4] &&
       gameState[4] === gameState[6]
     ) {
-      setwinner(`${gameState[2]} won the game! 🥳`);
+      setwinner(
+        `${gameState[2] === "cross" ? "Opponent" : "You"} won the game! 🥳`,
+      );
     } else if (!gameState.includes("empty", 0)) {
       setwinner("Draw game... ⌛️");
     }
@@ -100,7 +116,7 @@ export default function App() {
           </Text>
         ) : (
           <Text className="text-2xl font-bold text-white/80 text-center">
-            Player {isCross ? "Others" : "Your"}'s take
+            It's {isCross ? "Opponent" : "Your"}'s take
           </Text>
         )}
       </View>
