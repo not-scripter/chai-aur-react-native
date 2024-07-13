@@ -1,28 +1,30 @@
-import { View, Text, Dimensions, Image, FlatList } from "react-native";
+import ControlCentre from "@/components/ControlCentre";
+import SongInfo from "@/components/SongInfo";
+import SongSlider from "@/components/SongSlider";
 import React, { useState } from "react";
+import { Dimensions, Image, View } from "react-native";
 import TrackPlayer, {
   Event,
   Track,
   useTrackPlayerEvents,
 } from "react-native-track-player";
-import { playlistData } from "../constants";
-import SongInfo from "@/components/SongInfo";
-import SongSlider from "@/components/SongSlider";
-import ControlCentre from "@/components/ControlCentre";
 
 const { width } = Dimensions.get("window");
 
 export default function MusicPlayer() {
   const [track, settrack] = useState<Track | null>();
 
-  useTrackPlayerEvents([Event.PlaybackTrackChanged], async (event) => {
-    switch (event.type) {
-      case Event.PlaybackTrackChanged:
-        const playingTrack = await TrackPlayer.getTrack(event.nextTrack);
-        settrack(playingTrack);
-        break;
-    }
-  });
+  useTrackPlayerEvents(
+    [Event.PlaybackActiveTrackChanged, Event.MetadataCommonReceived],
+    async (event) => {
+      switch (event.type) {
+        case Event.PlaybackActiveTrackChanged:
+          const playingTrack = await TrackPlayer.getActiveTrack();
+          settrack(playingTrack);
+          break;
+      }
+    },
+  );
 
   const renderArtwork = () => {
     return (

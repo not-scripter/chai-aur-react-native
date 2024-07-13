@@ -2,6 +2,7 @@ import Slider from "@react-native-community/slider";
 import React from "react";
 import { Text, View } from "react-native";
 import { useProgress } from "react-native-track-player";
+import { seekTo } from "react-native-track-player/lib/src/trackPlayer";
 
 export default function SongSlider() {
   const { position, duration } = useProgress();
@@ -13,6 +14,7 @@ export default function SongSlider() {
         maximumValue={duration}
         thumbTintColor="#fff"
         maximumTrackTintColor="#fff"
+        onValueChange={(value) => seekTo(value)}
       />
       <View className="flex-row justify-between mb-4">
         <Text className="text-white/80 font-bold">

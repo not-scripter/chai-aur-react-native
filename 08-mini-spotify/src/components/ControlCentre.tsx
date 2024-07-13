@@ -1,17 +1,16 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import React from "react";
+import { TouchableOpacity, View } from "react-native";
 import TrackPlayer, {
   State,
   usePlaybackState,
 } from "react-native-track-player";
-import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import { playbackService } from "../../musicPlayerServices";
 
 export default function ControlCentre() {
   const playbackState = usePlaybackState();
 
-  const togglePlayback = async (playbackState: State) => {
-    const currentTrack = await TrackPlayer.getCurrentTrack();
+  const togglePlayback = async (playbackState: State | undefined) => {
+    const currentTrack = await TrackPlayer.getActiveTrack();
 
     if (currentTrack !== null) {
       if (playbackState === State.Paused || playbackState === State.Ready) {
