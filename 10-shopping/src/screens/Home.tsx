@@ -11,7 +11,7 @@ type HomeProps = StackScreenProps<RootStackParamList, "Home">;
 
 export default function Home({ navigation }: HomeProps) {
   return (
-    <View>
+    <View className="bg-gray-900">
       <FlatList
         data={PRODUCTS_LIST}
         keyExtractor={(item) => item.id}
@@ -19,6 +19,7 @@ export default function Home({ navigation }: HomeProps) {
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => navigation.navigate("Details", { product: item })}
+            className="overflow-hidden"
           >
             <ProduckItem product={item} />
           </TouchableOpacity>

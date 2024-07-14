@@ -1,35 +1,57 @@
-import { View, Text, Image } from "react-native";
-import React from "react";
 import { StackScreenProps } from "@react-navigation/stack";
+import React from "react";
+import { Image, Text, View } from "react-native";
 import { RootStackParamList } from "../../App";
-import { ScrollView } from "react-native-gesture-handler";
+import RelatedProducts from "@/components/RelatedProducts";
 
 type DetailsProps = StackScreenProps<RootStackParamList, "Details">;
 
-export default function Details({ route }: DetailsProps) {
+export default function Details({ route, navigation }: DetailsProps) {
   const { product } = route.params;
   return (
-    <ScrollView>
+    <View className="bg-gray-900 h-full">
       <View>
-        <Image source={{ uri: product.imgUrl }} />
-        <View>
-          <Text>{product.name}</Text>
+        <View className="flex items-center p-4">
+          <Image
+            source={{ uri: product.imageUrl }}
+            style={{ resizeMode: "contain" }}
+            className="w-[90vw] h-[90vw] bg-white rounded-md"
+          />
+        </View>
+        <View className="px-4">
+          <Text className="text-white/80 font-bold text-xl">
+            {product.name}
+          </Text>
           <View>
-            <Text>{product.rating}</Text>
-            <Text>({product.ratingCount.toLocaleString()})</Text>
+            <Text className="text-white/70 font-bold">
+              {product.rating} ({product.ratingCount.toLocaleString()})
+            </Text>
           </View>
-          <View>
-            <Text>{product.originalPrice}</Text>
-            <Text>{product.discountPrice}</Text>
-            <Text>{product.offerPercentage}</Text>
+          <View className="flex-row gap-2 items-center">
+            <Text className="text-white/70 font-bold text-2xl">
+              ₹{product.discountPrice}
+            </Text>
+            <Text className="text-white/50 font-bold text-sm line-through">
+              ₹{product.originalPrice}
+            </Text>
           </View>
-          <View>
+          <Text className="text-white/70 font-bold">
+            {product.offerPercentage}% Off
+          </Text>
+          <View className="flex-row flex-wrap gap-2 mt-2">
             {product.tags.map((item, index) => (
-              <Text key={index}>{item}</Text>
+              <Text
+                key={index}
+                className="text-white/70 font-bold p-2 bg-gray-500 rounded-full"
+              >
+                {item}
+              </Text>
             ))}
           </View>
         </View>
       </View>
-    </ScrollView>
+      {/*NOTE: Related Products */}
+      <RelatedProducts product={product} />
+    </View>
   );
 }
