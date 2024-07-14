@@ -1,13 +1,31 @@
-import { StatusBar } from "expo-status-bar";
-import { Text, View } from "react-native";
+import Details from "@/screens/Details";
+import Home from "@/screens/Home";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import "react-native-gesture-handler";
+
+export type RootStackParamList = {
+  Home: undefined;
+  Details: { productId: string };
+};
 
 export default function App() {
+  const Stack = createStackNavigator();
+
   return (
-    <View className="flex-1 items-center justify-center dark:bg-black">
-      <Text className="text-2xl font-bold dark:text-white/80">
-        Namaste World!
-      </Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ title: "09 Pronect App" }}
+        />
+        <Stack.Screen
+          name="Details"
+          component={Details}
+          options={{ title: "09 Pronect App Desc" }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
