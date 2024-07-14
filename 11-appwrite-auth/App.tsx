@@ -1,13 +1,6 @@
-import { StatusBar } from "expo-status-bar";
-import { Text, View } from "react-native";
-
+import { View, Text } from "react-native";
+import React from "react";
+import Router from "@/routes/Router";
 export default function App() {
-  return (
-    <View className="flex-1 items-center justify-center dark:bg-black">
-      <Text className="text-2xl font-bold dark:text-white/80">
-        Namaste World!
-      </Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  return <Router />;
 }
