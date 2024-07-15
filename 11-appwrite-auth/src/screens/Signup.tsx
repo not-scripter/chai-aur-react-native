@@ -1,4 +1,4 @@
-import { appwriteContext } from "@/appwrite/appwriteContext";
+import { AppwriteContext } from "@/appwrite/AppwriteContext";
 import React, { useContext, useState } from "react";
 import {
   KeyboardAvoidingView,
@@ -11,11 +11,12 @@ import {
 import { authStackProps } from "@/routes/AuthStack";
 import { StackScreenProps } from "@react-navigation/stack";
 import { Platform } from "react-native";
+import Loading from "@/components/Loading";
 
 type SignupScreenProps = StackScreenProps<authStackProps, "Signup">;
 
 export default function Signup({ navigation }: SignupScreenProps) {
-  const { appwrite, setIsLoggedIn } = useContext(appwriteContext);
+  const { appwrite, setisLoggedIn } = useContext(AppwriteContext);
 
   const [error, seterror] = useState<string>("");
   const [name, setname] = useState<string>("");
@@ -23,7 +24,10 @@ export default function Signup({ navigation }: SignupScreenProps) {
   const [password, setpassword] = useState<string>("");
   const [repeatPassword, setrrepeatPassword] = useState<string>("");
 
+  const [isLoading, setisLoading] = useState<boolean>(false);
+
   const handleSignup = () => {
+    setisLoading(true);
     if (
       name.length < 1 ||
       email.length < 1 ||
@@ -43,15 +47,22 @@ export default function Signup({ navigation }: SignupScreenProps) {
         .signup(user)
         .then((response) => {
           if (response) {
-            setIsLoggedIn(true);
+            setisLoggedIn(true);
           }
         })
         .catch((error) => {
-          setIsLoggedIn(false);
+          setisLoggedIn(false);
           seterror(error.message);
+        })
+        .finally(() => {
+          setisLoading(false);
         });
     }
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <KeyboardAvoidingView

@@ -1,7 +1,8 @@
 import { View, Text, SafeAreaView } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { FAB, Image } from "@rneui/themed";
-import { appwriteContext } from "@/appwrite/appwriteContext";
+import { AppwriteContext } from "@/appwrite/AppwriteContext";
+import Loading from "@/components/Loading";
 
 type UserProps = {
   name: string;
@@ -11,12 +12,20 @@ type UserProps = {
 export default function Home() {
   const [userData, setuserData] = useState<UserProps>();
 
-  const { appwrite, setIsLoggedIn } = useContext(appwriteContext);
+  const { appwrite, setisLoggedIn } = useContext(AppwriteContext);
+
+  const [isLoading, setisLoading] = useState<boolean>(false);
 
   const handleLogout = () => {
-    appwrite.logout().then(() => {
-      setIsLoggedIn(false);
-    });
+    setisLoading(true);
+    appwrite
+      .logout()
+      .then(() => {
+        setisLoggedIn(false);
+      })
+      .finally(() => {
+        setisLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -31,8 +40,12 @@ export default function Home() {
     });
   }, [appwrite]);
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
-    <SafeAreaView>
+    <SafeAreaView className="bg-gray-900 h-full flex-1 items-center justify-center">
       <View>
         <Image
           source={{
@@ -43,11 +56,13 @@ export default function Home() {
           }}
           resizeMode="contain"
         />
-        <Text>Build Fast. Scale Big. All in One Place.</Text>
+        <Text className="text-white">
+          Build Fast. Scale Big. All in One Place.
+        </Text>
         {userData && (
           <View>
-            <Text>Name: {userData.name}</Text>
-            <Text>Email: {userData.email}</Text>
+            <Text className="text-white">Name: {userData.name}</Text>
+            <Text className="text-white">Email: {userData.email}</Text>
           </View>
         )}
       </View>

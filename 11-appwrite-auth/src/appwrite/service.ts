@@ -43,7 +43,7 @@ export default class appwriteService {
         return userAccount;
       }
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   }
 
@@ -51,7 +51,7 @@ export default class appwriteService {
     try {
       return await this.account.createEmailPasswordSession(email, password);
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   }
 
@@ -59,7 +59,7 @@ export default class appwriteService {
     try {
       return await this.account.get();
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   }
 
@@ -67,7 +67,7 @@ export default class appwriteService {
     try {
       return await this.account.deleteSession("current");
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   }
 }

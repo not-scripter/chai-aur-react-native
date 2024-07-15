@@ -17,6 +17,10 @@ export default function appStack() {
         options={{
           headerTitleAlign: "center",
           headerBackTitleVisible: false,
+          headerTintColor: "#f0f0f0",
+          headerStyle: {
+            backgroundColor: "#0f0f0f",
+          },
         }}
       />
     </Stack.Navigator>

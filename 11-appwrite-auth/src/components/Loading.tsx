@@ -1,10 +1,10 @@
+import Ionicons from "@expo/vector-icons/Ionicons";
 import React from "react";
-import { ActivityIndicator, View } from "react-native";
-
+import { View } from "react-native";
 export default function Loading() {
   return (
-    <View>
-      <ActivityIndicator size={"large"} color={"#0f0"} />
+    <View className="bg-gray-900 h-full flex-1 items-center justify-center">
+      <Ionicons name="reload" size={36} color={"#fff"} />
     </View>
   );
 }

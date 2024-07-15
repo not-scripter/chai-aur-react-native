@@ -1,6 +1,11 @@
-import { View, Text } from "react-native";
-import React from "react";
+import { AppwriteProvider } from "@/appwrite/AppwriteContext";
 import Router from "@/routes/Router";
+import React from "react";
+
 export default function App() {
-  return <Router />;
+  return (
+    <AppwriteProvider>
+      <Router />
+    </AppwriteProvider>
+  );
 }

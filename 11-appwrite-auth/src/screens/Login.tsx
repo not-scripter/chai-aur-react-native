@@ -7,22 +7,26 @@ import {
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { Button, FAB, Image } from "@rneui/themed";
-import { appwriteContext } from "@/appwrite/appwriteContext";
+import { AppwriteContext } from "@/appwrite/AppwriteContext";
 
 import { StackScreenProps } from "@react-navigation/stack";
 import { authStackProps } from "@/routes/AuthStack";
 import { Platform } from "react-native";
+import Loading from "@/components/Loading";
 
 type LoginScreenProps = StackScreenProps<authStackProps, "Login">;
 
 export default function Signup({ navigation }: LoginScreenProps) {
-  const { appwrite, setIsLoggedIn } = useContext(appwriteContext);
+  const { appwrite, setisLoggedIn } = useContext(AppwriteContext);
 
   const [error, seterror] = useState<string>("");
   const [email, setemail] = useState<string>("");
   const [password, setpassword] = useState<string>("");
 
+  const [isLoading, setisLoading] = useState<boolean>(false);
+
   const handleSignup = () => {
+    setisLoading(true);
     if (email.length < 1 || password.length < 1) {
       seterror("All fields are required");
     } else {
@@ -32,17 +36,24 @@ export default function Signup({ navigation }: LoginScreenProps) {
       };
       appwrite
         .login(user)
-        .then((response) => {
+        .then((response: any) => {
           if (response) {
-            setIsLoggedIn(true);
+            setisLoggedIn(true);
           }
         })
-        .catch((error) => {
-          setIsLoggedIn(false);
+        .catch((error: any) => {
+          setisLoggedIn(false);
           seterror(error.message);
+        })
+        .finally(() => {
+          setisLoading(false);
         });
     }
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <KeyboardAvoidingView
