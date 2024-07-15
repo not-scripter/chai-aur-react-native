@@ -9,7 +9,6 @@ const client = new Client();
 const APPWRITE_ENDPOINT: string = "https://cloud.appwrite.io/v1";
 const APPWRITE_PROJECT_ID: string = "66941cc4000b4a96e909";
 
-console.log(APPWRITE_ENDPOINT, APPWRITE_PROJECT_ID);
 type CreateUserAccountProps = {
   email: string;
   password: string;

@@ -1,13 +1,12 @@
 import {
   View,
   Text,
-  SafeAreaView,
   KeyboardAvoidingView,
   TextInput,
   Pressable,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
-import { FAB, Image } from "@rneui/themed";
+import { Button, FAB, Image } from "@rneui/themed";
 import { appwriteContext } from "@/appwrite/appwriteContext";
 
 import { StackScreenProps } from "@react-navigation/stack";
@@ -39,7 +38,7 @@ export default function Signup({ navigation }: LoginScreenProps) {
           }
         })
         .catch((error) => {
-          console.log(error);
+          setIsLoggedIn(false);
           seterror(error.message);
         });
     }
@@ -48,9 +47,10 @@ export default function Signup({ navigation }: LoginScreenProps) {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
+      className="bg-gray-900 h-full p-4"
     >
-      <View>
-        <Text>Appwrite Auth</Text>
+      <View className="bg-gray-700 flex items-center rounded-md p-4">
+        <Text className="text-white/80 font-bold text-2xl">Appwrite Auth</Text>
 
         {/* Email */}
         <TextInput
@@ -62,6 +62,7 @@ export default function Signup({ navigation }: LoginScreenProps) {
           }}
           placeholderTextColor={"#AEAEAE"}
           placeholder="Email"
+          className="bg-gray-500 text-white/90 font-bold w-full px-4 rounded-md py-1 mt-4"
         />
 
         {/* Password */}
@@ -74,24 +75,34 @@ export default function Signup({ navigation }: LoginScreenProps) {
           placeholderTextColor={"#AEAEAE"}
           placeholder="Password"
           secureTextEntry
+          className="bg-gray-500 text-white/90 font-bold w-full px-4 rounded-md py-1 mt-4"
         />
 
         {/* Validation error */}
-        {error ? <Text>{error}</Text> : null}
+        {error ? (
+          <Text className="text-red-300  w-full text-start p-2">{error}</Text>
+        ) : null}
 
         {/* Signup button */}
-        <Pressable onPress={handleSignup}>
-          <Text>Login</Text>
+        <Pressable
+          className="bg-gray-200 px-4 py-1 rounded-md mt-4"
+          onPress={handleSignup}
+        >
+          <Text className="text-black/80 font-bold text-lg">Login</Text>
         </Pressable>
 
         {/* Login navigation */}
-        <Pressable onPress={() => navigation.navigate("Login")}>
-          <Text>
+        <Pressable
+          onPress={() => navigation.navigate("Signup")}
+          className="px-4 py-1 rounded-md"
+        >
+          <Text className="text-white/70 mt-4">
             Already have an account?{"  "}
-            <Text>Signup</Text>
+            <Text className="text-blue-300">Signup</Text>
           </Text>
         </Pressable>
       </View>
+      <Button onPress={() => appwrite.logout()}>Logout</Button>
     </KeyboardAvoidingView>
   );
 }

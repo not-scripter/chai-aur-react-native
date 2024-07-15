@@ -19,6 +19,10 @@ export default function authStack() {
         options={{
           headerTitleAlign: "center",
           headerBackTitleVisible: false,
+          headerTintColor: "#f0f0f0",
+          headerStyle: {
+            backgroundColor: "#0f0f0f",
+          },
         }}
       />
       <Stack.Screen
@@ -27,6 +31,10 @@ export default function authStack() {
         options={{
           headerTitleAlign: "center",
           headerBackTitleVisible: false,
+          headerTintColor: "#f0f0f0",
+          headerStyle: {
+            backgroundColor: "#0f0f0f",
+          },
         }}
       />
     </Stack.Navigator>

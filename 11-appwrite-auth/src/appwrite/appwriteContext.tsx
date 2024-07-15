@@ -21,7 +21,11 @@ export const appwriteProvider: FC<PropsWithChildren> = ({ children }) => {
   const defaultValue = {
     appwrite: new appwriteService(),
     isLoggedIn,
-    setIsLoggedIn: (isLoggedIn: boolean) => {},
+    setIsLoggedIn: (isLoggedIn: boolean) => {
+      if (isLoggedIn) {
+        setisLoggedIn(isLoggedIn);
+      }
+    },
   };
 
   return (

@@ -1,17 +1,15 @@
-import {
-  View,
-  Text,
-  SafeAreaView,
-  KeyboardAvoidingView,
-  TextInput,
-  Pressable,
-} from "react-native";
-import React, { useContext, useEffect, useState } from "react";
-import { FAB, Image } from "@rneui/themed";
 import { appwriteContext } from "@/appwrite/appwriteContext";
+import React, { useContext, useState } from "react";
+import {
+  KeyboardAvoidingView,
+  Pressable,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
-import { StackScreenProps } from "@react-navigation/stack";
 import { authStackProps } from "@/routes/AuthStack";
+import { StackScreenProps } from "@react-navigation/stack";
 import { Platform } from "react-native";
 
 type SignupScreenProps = StackScreenProps<authStackProps, "Signup">;
@@ -49,7 +47,7 @@ export default function Signup({ navigation }: SignupScreenProps) {
           }
         })
         .catch((error) => {
-          console.log(error);
+          setIsLoggedIn(false);
           seterror(error.message);
         });
     }
@@ -58,9 +56,10 @@ export default function Signup({ navigation }: SignupScreenProps) {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
+      className="bg-gray-900 h-full p-4"
     >
-      <View>
-        <Text>Appwrite Auth</Text>
+      <View className="bg-gray-700 flex items-center rounded-md p-4">
+        <Text className="text-white/80 font-bold text-2xl">Appwrite Auth</Text>
 
         {/* Name */}
         <TextInput
@@ -70,7 +69,8 @@ export default function Signup({ navigation }: SignupScreenProps) {
             setname(text);
           }}
           placeholderTextColor={"#AEAEAE"}
-          placeholder="Name"
+          placeholder="Enter yout name"
+          className="bg-gray-500 text-white/90 font-bold w-full px-4 rounded-md py-1 mt-4"
         />
 
         {/* Email */}
@@ -82,7 +82,8 @@ export default function Signup({ navigation }: SignupScreenProps) {
             setemail(text);
           }}
           placeholderTextColor={"#AEAEAE"}
-          placeholder="Email"
+          placeholder="Enter your email"
+          className="bg-gray-500 text-white/90 font-bold w-full px-4 rounded-md py-1 mt-4"
         />
 
         {/* Password */}
@@ -95,6 +96,7 @@ export default function Signup({ navigation }: SignupScreenProps) {
           placeholderTextColor={"#AEAEAE"}
           placeholder="Password"
           secureTextEntry
+          className="bg-gray-500 text-white/90 font-bold w-full px-4 rounded-md py-1 mt-4"
         />
 
         {/* Repeat password */}
@@ -107,21 +109,30 @@ export default function Signup({ navigation }: SignupScreenProps) {
           }}
           placeholderTextColor={"#AEAEAE"}
           placeholder="Repeat Password"
+          className="bg-gray-500 text-white/90 font-bold w-full px-4 rounded-md py-1 mt-4"
         />
 
         {/* Validation error */}
-        {error ? <Text>{error}</Text> : null}
+        {error ? (
+          <Text className="text-red-300  w-full text-start p-2">{error}</Text>
+        ) : null}
 
         {/* Signup button */}
-        <Pressable onPress={handleSignup}>
-          <Text>Sign Up</Text>
+        <Pressable
+          onPress={handleSignup}
+          className="bg-gray-200 px-4 py-1 rounded-md mt-4"
+        >
+          <Text className="text-black/80 font-bold text-lg">Sign Up</Text>
         </Pressable>
 
         {/* Login navigation */}
-        <Pressable onPress={() => navigation.navigate("Login")}>
-          <Text>
+        <Pressable
+          onPress={() => navigation.navigate("Login")}
+          className="px-4 py-1 rounded-md"
+        >
+          <Text className="text-white/70 mt-4">
             Already have an account?{"  "}
-            <Text>Login</Text>
+            <Text className="text-blue-300">Login</Text>
           </Text>
         </Pressable>
       </View>
